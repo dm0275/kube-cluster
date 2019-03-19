@@ -1,0 +1,5 @@
+# Directories
+.vagrant/
+
+# Files
+*.log
