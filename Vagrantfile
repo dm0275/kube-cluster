@@ -1,5 +1,5 @@
 # Define Vars
-k8s_workers = 2
+k8s_workers = 1
 
 # Configure VMs
 Vagrant.configure("2") do |config|
@@ -20,16 +20,14 @@ Vagrant.configure("2") do |config|
     end
   end
 
-  # (1..k8s_workers).each do |i|
-  #   config.vm.define "k8s_worker-#{i}" do |node|
-  #       node.vm.box = "ubuntu/bionic64"
-  #       node.vm.network "private_network", ip: "192.168.99.#{i + 10}"
-  #       node.vm.hostname = "k8s_worker-#{i}"
-  #       node.vm.provision "ansible" do |ansible|
-  #           ansible.playbook = "kubernetes-setup/node-playbook.yml"
-  #       end
-  #   end
-  # end
-end
-
+  (1..k8s_workers).each do |i|
+    config.vm.define "k8s-worker-#{i}" do |node|
+        node.vm.box = "ubuntu/bionic64"
+        node.vm.network "private_network", ip: "192.168.99.#{i + 10}"
+        node.vm.hostname = "k8s_worker-#{i}"
+        node.vm.provision "ansible" do |ansible|
+            ansible.playbook = "./worker.yml"
+        end
+    end
+  end
 end
