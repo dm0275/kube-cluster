@@ -5,7 +5,7 @@ k8s_workers = 1
 Vagrant.configure("2") do |config|
 
   config.vm.define "kubemaster" do |k8s_master|
-    k8s_master.vm.hostname = "k8s_master"
+    k8s_master.vm.hostname = "k8s-master"
     k8s_master.vm.box = "ubuntu/bionic64"
     k8s_master.vm.network "private_network", ip: "192.168.99.10"
     k8s_master.vm.provider "virtualbox" do |vb|
@@ -24,7 +24,10 @@ Vagrant.configure("2") do |config|
     config.vm.define "k8s-worker-#{i}" do |node|
         node.vm.box = "ubuntu/bionic64"
         node.vm.network "private_network", ip: "192.168.99.#{i + 10}"
-        node.vm.hostname = "k8s_worker-#{i}"
+        node.vm.hostname = "k8s-worker-#{i}"
+
+        node.vm.provision :shell, :inline => "sudo apt-get install python -y"
+        
         node.vm.provision "ansible" do |ansible|
             ansible.playbook = "./worker.yml"
         end
