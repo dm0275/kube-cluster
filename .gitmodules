@@ -1,3 +1,0 @@
-[submodule "kube-cluster-ansible"]
-	path = kube-cluster-ansible
-	url = https://github.com/dm0275/kube-cluster-ansible.git

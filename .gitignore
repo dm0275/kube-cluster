@@ -1,5 +1,6 @@
 # Directories
 .vagrant/
+kube-cluster-ansible/
 
 # Files
 *.log

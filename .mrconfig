@@ -1,0 +1,2 @@
+[kube-cluster-ansible]
+checkout = git clone 'https://github.com/dm0275/kube-cluster-ansible.git'
